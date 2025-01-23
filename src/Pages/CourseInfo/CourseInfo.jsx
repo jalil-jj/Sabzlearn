@@ -2,6 +2,7 @@ import React from 'react'
 import Topbar from "./../../Components/Topbar/Topbar";
 import Navbar from "./../../Components/Navbar/Navbar";
 import Footer from "./../../Components/Footer/Footer";
+import CourseDetailBox from '../../Components/CourseDetailBox/CourseDetailBox'
 
 import './CourseInfo.css'
 import Breadcrumb from '../../Components/Breadcrumb/Breadcrumb';
@@ -63,6 +64,40 @@ export default function CourseInfo() {
           </div>
         </div>
       </section>
+
+
+      <main class="main">
+        <div class="container">
+          <div class="row">
+            <div class="col-8">
+              <div class="course">
+                <div class="course-boxes">
+                  <div class="row">
+                    <CourseDetailBox 
+                      icon='graduation-cap'
+                      title='وضعیت دوره:'
+                      text="به اتمام رسیده"
+                    />
+                    <CourseDetailBox
+                      icon="clock"
+                      title=" مدت زمان دوره:"
+                      text="19 ساعت"
+                    />
+                    <CourseDetailBox
+                      icon="calendar-alt"
+                      title="آخرین بروزرسانی:"
+                      text="1401/03/02"
+                    />
+                    <CourseDetailBox />
+                    <CourseDetailBox />
+                    <CourseDetailBox />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
 
 
       <Footer />
