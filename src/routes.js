@@ -12,6 +12,8 @@ const routes = [
     { path : '/category-info/:categoryName' , element : <Category /> } , 
     { path : '/article-info/:articleName' , element : <ArticleInfo /> } , 
     { path : '/courses' , element : <Courses /> } , 
+    { path : '/login' , element : <Login /> } , 
+    { path : '/register' , element : <Register /> } , 
 ]
 
 export default routes
