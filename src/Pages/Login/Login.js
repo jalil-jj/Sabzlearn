@@ -5,6 +5,8 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Topbar from "../../Components/Topbar/Topbar";
 import Input from '../../Components/Form/Input'
 
+import { riquiredValidator, minValidator, maxValidator, emailValidator } from '../../validators/ruls'
+
 import "./Login.css";
 
 export default function Login() {
@@ -32,6 +34,11 @@ export default function Login() {
                 className='login-form__username-input'
                 type="text"
                 placeholder="نام کاربری یا آدرس ایمیل"
+                validation={[
+                  riquiredValidator(),
+                  minValidator(8),
+                  maxValidator(20)
+                ]}
               />
               <i class="login-form__username-icon fa fa-user"></i>
             </div>
@@ -41,6 +48,11 @@ export default function Login() {
                 type="text"
                 placeholder="رمز عبور"
                 element='input'
+                validation={[
+                  riquiredValidator(),
+                  minValidator(8),
+                  maxValidator(11)
+                ]}
               />
               <i class="login-form__password-icon fa fa-lock-open"></i>
             </div>

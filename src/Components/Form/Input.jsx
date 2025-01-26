@@ -4,6 +4,8 @@ import './Input.css'
 
 export default function Input(props) {
 
+    console.log(props.validation);
+
     const inputReducer = (state, action) => {
         switch (action.type) {
             case "CHANGE": {
