@@ -1,10 +1,10 @@
 import React, { useReducer } from 'react'
+import validator from '../../validators/validator';
 
 import './Input.css'
 
 export default function Input(props) {
 
-    console.log(props.validation);
 
     const inputReducer = (state, action) => {
         switch (action.type) {
@@ -12,7 +12,7 @@ export default function Input(props) {
                 return {
                     ...state,
                     value: action.value,
-                    isValid: action.value.trim().length > 7,
+                    isValid: validator(action.value, action.validations),
                 }
             }
             default: {
@@ -27,13 +27,12 @@ export default function Input(props) {
     })
 
     const onChangeHandler = (event) => {
-        console.log(event.target.value);
-
 
 
         dispatch({
             type: 'CHANGE',
             value: event.target.value,
+            validations: props.validations,
             isValid: true
         })
 
@@ -43,7 +42,7 @@ export default function Input(props) {
         <input
             type={props.type}
             placeholder={props.placeholder}
-            className={`${props.className} ${mainInput.isValid ? 'success' : '' }`}
+            className={`${props.className} ${mainInput.isValid ? 'success' : ''}`}
             value={mainInput.value}
             onChange={onChangeHandler}
         />

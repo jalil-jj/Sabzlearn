@@ -5,7 +5,7 @@ import Navbar from "../../Components/Navbar/Navbar";
 import Topbar from "../../Components/Topbar/Topbar";
 import Input from '../../Components/Form/Input'
 
-import { riquiredValidator, minValidator, maxValidator, emailValidator } from '../../validators/ruls'
+import { riquiredValidator  , minValidator , maxValidator} from '../../validators/ruls'
 
 import "./Login.css";
 
@@ -34,7 +34,7 @@ export default function Login() {
                 className='login-form__username-input'
                 type="text"
                 placeholder="نام کاربری یا آدرس ایمیل"
-                validation={[
+                validations={[
                   riquiredValidator(),
                   minValidator(8),
                   maxValidator(20)
@@ -48,7 +48,7 @@ export default function Login() {
                 type="text"
                 placeholder="رمز عبور"
                 element='input'
-                validation={[
+                validations={[
                   riquiredValidator(),
                   minValidator(8),
                   maxValidator(11)
