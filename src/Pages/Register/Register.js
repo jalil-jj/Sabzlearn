@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../../Components/Footer/Footer";
 import Button from "../../Components/Form/Button";
@@ -8,10 +8,15 @@ import Topbar from "../../Components/Topbar/Topbar";
 import { useForm } from "../../hooks/useForm";
 
 
-import { requiredValidator  , maxValidator , minValidator ,emailValidator } from "../../validators/ruls";
+import { requiredValidator, maxValidator, minValidator, emailValidator } from "../../validators/ruls";
 import "./Register.css";
+import AuthContex from "../../Contex/authContex";
 
 export default function Register() {
+
+  const authContex = useContext(AuthContex)
+  console.log('contex =>' , authContex);
+
   const [formState, onInputHandler] = useForm(
     {
       name: {
@@ -34,13 +39,31 @@ export default function Register() {
     false
   );
 
-  console.log("formState:", formState);
-
 
   const registerNewUser = (event) => {
     event.preventDefault();
-    console.log("User Register");
-  };
+
+    const newUserInfos = {
+      name: formState.inputs.name.value,
+      username: formState.inputs.username.value,
+      email: formState.inputs.email.value,
+      password: formState.inputs.password.value,
+      confirmPassword: formState.inputs.password.value,
+    };
+
+    fetch('http://localhost:4000/v1/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newUserInfos),
+    })
+      .then(res => res.json())
+      .then(result => {
+        console.log(result.accessToken)
+        authContex.login(result.user , result.accessToken)
+      })
+  }
 
   return (
     <>
@@ -127,14 +150,13 @@ export default function Register() {
               <i className="login-form__password-icon fa fa-lock-open"></i>
             </div>
             <Button
-              className={`login-form__btn ${
-                formState.isFormValid
-                  ? "login-form__btn-success"
-                  : "login-form__btn-error"
-              }`}
+              className={`login-form__btn ${formState.isFormValid
+                ? "login-form__btn-success"
+                : "login-form__btn-error"
+                }`}
               type="submit"
               onClick={registerNewUser}
-              disabled={false}
+              disabled={!formState.isFormValid}
             >
               <i className="login-form__btn-icon fa fa-user-plus"></i>
               <span className="login-form__btn-text">عضویت</span>

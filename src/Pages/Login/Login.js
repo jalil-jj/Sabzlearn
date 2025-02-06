@@ -24,9 +24,42 @@ export default function Login() {
     }
   }, false)
 
-  console.log(formState);
 
+  const userLogin = (event) => {
+    event.preventDefault()
 
+    const userData = {
+      identifier: formState.inputs.username.value,
+      password: formState.inputs.password.value
+    }
+
+    // console.log(userData);
+
+    fetch(`http://localhost:4000/v1/auth/login`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userData)
+    })
+      .then(res => {
+        if (!res.ok) {
+          return res.text().then(text => {
+            throw new Error(text)
+          })
+        } else {
+          return res.json()
+        }
+      })
+      .then(result => {
+        console.log(result);
+      })
+      .catch(err => {
+        console.log('err =>', err);
+        alert('همچین کاربری با این نام کاربری یا ایمیل وجود ندارد :(')
+      })
+
+  }
 
 
 
@@ -83,9 +116,10 @@ export default function Login() {
             </div>
             <Button
               className={`login-form__btn ${formState.isFormValid
-                  ? "login-form__btn-success"
-                  : "login-form__btn-error"
+                ? "login-form__btn-success"
+                : "login-form__btn-error"
                 }`}
+              onClick={userLogin}
               type="submit">
               <i class="login-form__btn-icon fas fa-sign-out-alt"></i>
               <span class="login-form__btn-text">ورود</span>
