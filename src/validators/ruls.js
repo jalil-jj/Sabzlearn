@@ -7,7 +7,7 @@ const maxValue = 'MAX_VALUE'
 const emailValue = 'EMAIL_VALUE'
 
 
-export const riquiredValidator = () => ({
+export const requiredValidator  = () => ({
     value : requiredValue
 }) ;
 
