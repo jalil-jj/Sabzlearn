@@ -2,15 +2,15 @@ import { createContext } from 'react'
 
 
 
-const AuthContex = createContext({
+const AuthContext = createContext({
     logedIn: false,
     token: null,
     userInfos: null,
-    login: () => { },
-    logout: () => { }
+    login: () => {},
+    logout: () => {}
 })
 
 
 
 
-export default AuthContex
+export default AuthContext

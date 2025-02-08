@@ -160,3 +160,10 @@
   background-color: red;
 }
 
+
+.swal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+

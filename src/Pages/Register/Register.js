@@ -10,12 +10,12 @@ import { useForm } from "../../hooks/useForm";
 
 import { requiredValidator, maxValidator, minValidator, emailValidator } from "../../validators/ruls";
 import "./Register.css";
-import AuthContex from "../../Contex/authContex";
+import AuthContext from "../../Contex/authContex";
 
 export default function Register() {
 
-  const authContex = useContext(AuthContex)
-  console.log('contex =>' , authContex);
+  const authContext = useContext(AuthContext)
+  console.log('contex =>' , authContext);
 
   const [formState, onInputHandler] = useForm(
     {
@@ -60,8 +60,8 @@ export default function Register() {
     })
       .then(res => res.json())
       .then(result => {
-        console.log(result.accessToken)
-        authContex.login(result.user , result.accessToken)
+        console.log('hh=>' ,result.accessToken)
+        authContext.login(result.user , result.accessToken)
       })
   }
 

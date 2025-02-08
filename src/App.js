@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { useRoutes } from 'react-router-dom'
 import routes from './routes'
-import AuthContex from './Contex/authContex'
+import AuthContext from './Contex/authContex'
 
 export default function App() {
 
@@ -20,7 +20,6 @@ export default function App() {
 
   const logout = useCallback(() => {
     setToken(null)
-    setLogedIn(false)
     setUserInfos({})
     localStorage.removeItem('user')
   })
@@ -38,6 +37,7 @@ export default function App() {
         .then(userData => {
           setLogedIn(true)
           setUserInfos(userData)
+          // setToken(localStorageData.token);
         })
     }
   }, [login])
@@ -45,7 +45,7 @@ export default function App() {
 
   return (
 
-    <AuthContex.Provider value={{
+    <AuthContext.Provider value={{
       logedIn,
       token,
       userInfos,
@@ -53,7 +53,6 @@ export default function App() {
       logout,
     }}>
       {router}
-    </AuthContex.Provider>
-
+    </AuthContext.Provider>
   )
 }

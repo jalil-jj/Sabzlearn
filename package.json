@@ -11,6 +11,7 @@
     "react-router-dom": "^7.1.3",
     "react-scripts": "5.0.1",
     "react-typewriter-effect": "^1.1.0",
+    "sweetalert": "^2.1.2",
     "web-vitals": "^4.2.4"
   },
   "scripts": {

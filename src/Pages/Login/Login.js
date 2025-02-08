@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from 'react-router-dom'
 import Footer from "../../Components/Footer/Footer";
 import Navbar from "../../Components/Navbar/Navbar";
 import Topbar from "../../Components/Topbar/Topbar";
 import Input from '../../Components/Form/Input'
 import { useForm } from "../../hooks/useForm";
+import AuthContex from "../../Contex/authContex";
+import { useNavigate } from "react-router-dom";
+import swal from 'sweetalert'
 
 import { requiredValidator, minValidator, maxValidator } from '../../validators/ruls'
 
@@ -12,6 +15,10 @@ import "./Login.css";
 import Button from "../../Components/Form/Button";
 
 export default function Login() {
+
+  const navigate = useNavigate()
+
+  const authContex = useContext(AuthContex)
 
   const [formState, onInputHandler] = useForm({
     username: {
@@ -33,7 +40,6 @@ export default function Login() {
       password: formState.inputs.password.value
     }
 
-    // console.log(userData);
 
     fetch(`http://localhost:4000/v1/auth/login`, {
       method: 'POST',
@@ -52,11 +58,21 @@ export default function Login() {
         }
       })
       .then(result => {
-        console.log(result);
+        swal({
+          title: 'با موفقیت وارد شدید (:',
+          icon: "success",
+          buttons: 'رفتن به پنل'
+        }) .then(res => {
+          navigate('/')
+        })
+        authContex.login({}, result.accessToken)
       })
       .catch(err => {
-        console.log('err =>', err);
-        alert('همچین کاربری با این نام کاربری یا ایمیل وجود ندارد :(')
+        swal({
+          title: 'همچین کاربری در سایت وجود ندارد :(',
+          icon: "error",
+          buttons: 'تلاش دوباره',
+        })
       })
 
   }
