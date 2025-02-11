@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Topbar from '../../Components/Topbar/Topbar'
 import Navbsr from '../../Components/Navbar/Navbar'
 import Breadcrumb from '../../Components/Breadcrumb/Breadcrumb'
@@ -6,10 +6,27 @@ import CourseBox from '../../Components/CourseBox/CourseBox'
 import Footer from '../../Components/Footer/Footer'
 
 import './Courses.css'
+import Pagination from '../../Components/Pagination/Pagination'
 
 export default function Courses() {
-    return (
 
+    const [corses, setCourses] = useState([])
+    const [showCourses , setShowCourses] = useState([])
+
+
+    useEffect(() => {
+        fetch(`http://localhost:4000/v1/courses`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setCourses(data)
+            })
+    }, [])
+
+
+
+
+    return (
         <>
             <Topbar />
             <Navbsr />
@@ -27,45 +44,22 @@ export default function Courses() {
                     <div class="courses-content">
                         <div class="container">
                             <div class="row">
-                                <CourseBox />
-                                <CourseBox />
-                                <CourseBox />
-                                <CourseBox />
-                                <CourseBox />
-                                <CourseBox />
-                                <CourseBox />
-                                <CourseBox />
+                                {
+                                    showCourses.map(item => (
+                                        <CourseBox {...item} />
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
 
-                    <div class="courses-pagination">
-                        <ul class="courses__pagination-list">
-                            <li class="courses__pagination-item">
-                                <a href="#" class="courses__pagination-link">
-                                    <i class="fas fa-long-arrow-alt-right courses__pagination-icon"></i>
-                                </a>
-                            </li>
-                            <li class="courses__pagination-item">
-                                <a
-                                    href="#"
-                                    class="courses__pagination-link courses__pagination-link--active"
-                                >
-                                    1
-                                </a>
-                            </li>
-                            <li class="courses__pagination-item">
-                                <a href="#" class="courses__pagination-link">
-                                    2
-                                </a>
-                            </li>
-                            <li class="courses__pagination-item">
-                                <a href="#" class="courses__pagination-link">
-                                    3
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
+                 <Pagination
+                 items = {corses} 
+                 itemCourse = {4}
+                 pathname = {'/courses'}
+                 setShowCourses = {setShowCourses}
+                 />
+
                 </div>
             </section>
             {/* <!--------------------------------  Courses-Section  --------------------------------> */}
